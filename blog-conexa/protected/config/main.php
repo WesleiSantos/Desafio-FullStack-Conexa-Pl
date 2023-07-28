@@ -6,35 +6,43 @@
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return array(
-	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'My Web Application',
+	'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
+	'name' => 'My Web Application',
 
 	// preloading 'log' component
-	'preload'=>array('log'),
+	'preload' => array('log'),
 
 	// autoloading model and component classes
-	'import'=>array(
+	'import' => array(
 		'application.models.*',
 		'application.components.*',
 	),
 
-	'modules'=>array(
+	'modules' => array(
 		// uncomment the following to enable the Gii tool
-		
-		'gii'=>array(
-			'class'=>'system.gii.GiiModule',
-			'password'=>'Enter Your Password Here',
+
+		'gii' => array(
+			'class' => 'system.gii.GiiModule',
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
-			'ipFilters'=>array('127.0.0.1','::1'),
+			#'ipFilters'=>array('127.0.0.1','::1'),
+			'password' => 'admin',
+			'ipFilters' => array('127.0.0.1', $_SERVER['REMOTE_ADDR'])
 		),
 	),
 
-	// application components
-	'components'=>array(
+	
 
-		'user'=>array(
+	// application components
+	'components' => array(
+
+		'curl' => array(
+			'class' => 'application.extensions.curl.Curl',
+			'options' => array(),
+		),
+
+		'user' => array(
 			// enable cookie-based authentication
-			'allowAutoLogin'=>true,
+			'allowAutoLogin' => true,
 		),
 
 		// uncomment the following to enable URLs in path-format
@@ -50,19 +58,19 @@ return array(
 		*/
 
 		// database settings are configured in database.php
-		'db'=>require(dirname(__FILE__).'/database.php'),
+		'db' => require(dirname(__FILE__) . '/database.php'),
 
-		'errorHandler'=>array(
+		'errorHandler' => array(
 			// use 'site/error' action to display errors
-			'errorAction'=>YII_DEBUG ? null : 'site/error',
+			'errorAction' => YII_DEBUG ? null : 'site/error',
 		),
 
-		'log'=>array(
-			'class'=>'CLogRouter',
-			'routes'=>array(
+		'log' => array(
+			'class' => 'CLogRouter',
+			'routes' => array(
 				array(
-					'class'=>'CFileLogRoute',
-					'levels'=>'error, warning',
+					'class' => 'CFileLogRoute',
+					'levels' => 'error, warning',
 				),
 				// uncomment the following to show log messages on web pages
 				/*
@@ -73,12 +81,17 @@ return array(
 			),
 		),
 
+		'apiService' => array(
+			'class' => 'application.components.ApiService',
+		),
+
 	),
 
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
-	'params'=>array(
+	'params' => array(
 		// this is used in contact page
-		'adminEmail'=>'webmaster@example.com',
+		'adminEmail' => 'webmaster@example.com',
+		'apiBaseUrl' => 'https://my-json-server.typicode.com/WesleiSantos/Conexa-My-Json-DB/',
 	),
 );

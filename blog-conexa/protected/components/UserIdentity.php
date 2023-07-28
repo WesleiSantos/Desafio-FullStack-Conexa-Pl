@@ -1,5 +1,7 @@
 <?php
 
+use Yii;
+
 /**
  * UserIdentity represents the data needed to identity a user.
  * It contains the authentication method that checks if the provided
@@ -7,6 +9,7 @@
  */
 class UserIdentity extends CUserIdentity
 {
+
 	/**
 	 * Authenticates a user.
 	 * The example implementation makes sure if the username and password
@@ -17,17 +20,30 @@ class UserIdentity extends CUserIdentity
 	 */
 	public function authenticate()
 	{
-		$users=array(
-			// username => password
-			'demo'=>'demo',
-			'admin'=>'admin',
-		);
-		if(!isset($users[$this->username]))
-			$this->errorCode=self::ERROR_USERNAME_INVALID;
-		elseif($users[$this->username]!==$this->password)
-			$this->errorCode=self::ERROR_PASSWORD_INVALID;
+		try {
+			//$data = Yii::app()->curl->get('https://my-json-server.typicode.com/WesleiSantos/Conexa-My-Json-DB/users');
+			$data = Yii::app()->apiService->getUsersData();
+			$users = json_decode($data);        
+        } catch (\Exception $e) {
+			Yii::log($e->getMessage(), 'error', 'application');
+            echo 'Ocorreu um erro: ' . $e->getMessage();
+        }
+		$user = $this->getUserByUsername($users, $this->username);
+		if (!isset($user))
+			$this->errorCode = self::ERROR_USERNAME_INVALID;
+		elseif ($user->password !== $this->password)
+			$this->errorCode = self::ERROR_PASSWORD_INVALID;
 		else
-			$this->errorCode=self::ERROR_NONE;
+			$this->errorCode = self::ERROR_NONE;
 		return !$this->errorCode;
+	}
+
+	private function getUserByUsername(Array $users, string $username) {
+		foreach ($users as $user) {
+			if (isset($user->username) && $user->username === $username) {
+				return $user;
+			}
+		}
+		return null;
 	}
 }
