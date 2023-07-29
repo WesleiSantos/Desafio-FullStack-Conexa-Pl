@@ -8,8 +8,22 @@ $this->breadcrumbs = array(
 	'Login',
 );
 ?>
+
+<?php
+// Verificar se existe a mensagem flash de sucesso na sessão
+if (Yii::app()->user->hasFlash('success')) {
+    // Exibir a mensagem de sucesso
+    echo '<div class="alert alert-success  d-flex justify-content-between" role="alert">'
+        . '<div>'
+        . Yii::app()->user->getFlash('success')
+        . '</div>'
+        .'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>'
+        . '</div>';
+}
+?>
+
 <section class="login d-flex justify-content-center align-content-center flex-wrap h-100">
-	<div class="card" style="width: 18rem;">
+	<div class="card w-25">
 		<div class="card-body">
 			<h5 class="card-title text-center">Login</h5>
 			<?php $form = $this->beginWidget('CActiveForm', array(
@@ -31,7 +45,9 @@ $this->breadcrumbs = array(
 				<?php echo $form->label($model,  'Lembrar', array('class' => 'form-check-label')); ?>
 				<?php echo $form->error($model, 'rememberMe', array('class' => 'error text-danger')); ?>
 			</div>
-			<button type="submit" class="btn btn-primary">Login</button>
+			<div class="d-flex justify-content-center">
+				<button type="submit" class="btn btn-primary">Login</button>
+			</div>
 			<?php $this->endWidget(); ?>
 		</div>
 	</div>
