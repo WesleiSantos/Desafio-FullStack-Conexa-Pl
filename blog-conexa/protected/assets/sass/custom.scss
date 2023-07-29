@@ -1,4 +1,6 @@
 $primary:       #F48939;
+$primary-dark:  #EC6444;
+$gray-100:      #F8F9FA;
 
 .text-primary {
     color: $primary !important;
@@ -6,4 +8,34 @@ $primary:       #F48939;
 
 .bg-primary {
     background-color: $primary !important;
+}
+
+.nav-link{
+    color: $gray-100 !important;
+}
+
+.nav-link:hover{
+    color: black !important;
+}
+
+.nav-link.active{
+    color: black !important;
+}
+
+.btn-primary{
+    background-color: $primary-dark !important;
+    border-color: $primary-dark !important;
+}
+
+#page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* A div #page ocupa toda a altura da viewport */
+  }
+
+#mainmenu{
+    height: 100%;
+}
+#content{
+    height: 100%;
 }

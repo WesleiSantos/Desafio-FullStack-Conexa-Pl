@@ -4,6 +4,7 @@
 	<?php echo Yii::powered(); ?>
 </div><!-- footer -->
 
+</div><!-- page -->
 </body>
 
 </html>
