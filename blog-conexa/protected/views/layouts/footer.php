@@ -1,7 +1,7 @@
-<div id="footer" class="text-primary">
-	Copyright &copy; <?php echo date('Y'); ?> by My Company.<br />
-	All Rights Reserved.<br />
-	<?php echo Yii::powered(); ?>
+<div class="border-bottom"></div>
+
+<div id="footer" class="d-flex justify-content-center text-primary-dark my-2">
+	Copyright &copy; <?php echo date('Y'); ?> by Conexa.<br />
 </div><!-- footer -->
 
 </div><!-- page -->
