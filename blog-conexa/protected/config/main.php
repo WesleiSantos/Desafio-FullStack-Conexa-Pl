@@ -34,6 +34,20 @@ return array(
 
 	// application components
 	'components' => array(
+		'sass' => array(
+            // Path to the SassHandler class
+            'class' => 'ext.yii-sass.SassHandler',
+            
+            // Path and filename of scss.inc.php
+            'compilerPath' => __DIR__ . '/../vendor/scssphp/scss.inc.php',
+            
+            // Path and filename of compass.inc.php
+            // Required only if Compass support is needed
+            'compassPath' => __DIR__ . '/../vendor/scssphp-compass/compass.inc.php',
+            
+            // Enable Compass support, defaults to false
+            'enableCompass' => true,
+        ),
 
 		'curl' => array(
 			'class' => 'application.extensions.curl.Curl',
