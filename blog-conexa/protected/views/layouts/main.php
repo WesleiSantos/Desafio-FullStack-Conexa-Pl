@@ -20,10 +20,24 @@
 				<a class="nav-link" href="https://conexa.app/">Site oficial</a>
 			</li>
 		</ul>
-		<div class="buttons-group my-auto">
-			<a class="btn btn-primary" href="<?php echo Yii::app()->request->baseUrl . '/site/login' ?>">Login</a>
-			<a class="btn btn-primary" href="<?php echo Yii::app()->request->baseUrl . '/site/register' ?>">Cadastre-se</a>
-		</div>
+		<?php if (Yii::app()->user->getIsGuest()) : ?>
+			<!-- Se o usuário está deslogado, exiba o link de login -->
+			<div class="buttons-group my-auto">
+				<a class="btn btn-primary" href="<?php echo Yii::app()->request->baseUrl . '/site/login' ?>">Login</a>
+				<a class="btn btn-primary" href="<?php echo Yii::app()->request->baseUrl . '/site/register' ?>">Cadastre-se</a>
+			</div>
+		<?php else : ?>
+			<div class="dropdown d-flex my-auto">
+				<span class="name text-white align-middle h5 my-auto px-2"><?php echo Yii::app()->user->name; ?></span>
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					<i class="bi bi-person-circle h3"></i>
+				</a>
+				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<li><a class="dropdown-item" href="<?php echo Yii::app()->createUrl('site/logout'); ?>">Sair</a></li>
+				</ul>
+			</div>
+		<?php endif; ?>
+
 	</div><!-- header -->
 
 	<div id="mainmenu">
