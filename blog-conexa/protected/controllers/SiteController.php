@@ -34,25 +34,7 @@ class SiteController extends Controller
 		$users = Yii::app()->apiService->getAllUsersData();
 		$quantPages = Yii::app()->apiService->getCountPostsData(array('categoryId' => $categoryId, 'q' => $search));
 		$quantPages = (int)ceil($quantPages / 4);
-		$postsModel = [];
-
-		foreach ($posts as $post) {
-			$data = new Post();
-			$data->attributes = get_object_vars($post);
-			$data->image = $post->image;
-
-			$id = $post->categoryId;
-			$data->category = array_reduce($categories, function ($foundCategory, $category) use ($id) {
-				return $foundCategory ?: ($category->id == $id ? $category : null);
-			});
-
-			$userId = $post->userId;
-			$data->user = array_reduce($users, function ($foundUser, $user) use ($userId) {
-				return $foundUser ?: ($user->id == $userId ? $user : null);
-			});
-
-			$postsModel[] = $data;
-		}
+		$postsModel = $this->mapPostsToModels($posts, $categories, $users);
 
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
@@ -148,5 +130,30 @@ class SiteController extends Controller
 	{
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
+	}
+
+	private function mapPostsToModels(array $posts, array $categories, array $users): array
+	{
+		$postsModel = [];
+
+		foreach ($posts as $post) {
+			$data = new Post();
+			$data->attributes = get_object_vars($post);
+			$data->image = $post->image;
+
+			$id = $post->categoryId;
+			$data->category = array_reduce($categories, function ($foundCategory, $category) use ($id) {
+				return $foundCategory ?: ($category->id == $id ? $category : null);
+			});
+
+			$userId = $post->userId;
+			$data->user = array_reduce($users, function ($foundUser, $user) use ($userId) {
+				return $foundUser ?: ($user->id == $userId ? $user : null);
+			});
+
+			$postsModel[] = $data;
+		}
+
+		return $postsModel;
 	}
 }
