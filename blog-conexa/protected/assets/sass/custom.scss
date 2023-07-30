@@ -2,6 +2,8 @@ $primary:       #F48939;
 $primary-dark:  #EC6444;
 $gray-100:      #F8F9FA;
 
+
+
 .text-primary {
     color: $primary !important;
 }
@@ -31,6 +33,17 @@ $gray-100:      #F8F9FA;
     border-color: $primary-dark !important;
 }
 
+.btn-outline-primary{
+    color: $primary !important;
+    border-color: $primary !important;
+}
+
+.btn-outline-primary:hover{
+    color: #fff !important;
+    background-color: $primary !important;
+    border-color: $primary !important;
+}
+
 #page {
     display: flex;
     flex-direction: column;
@@ -38,8 +51,16 @@ $gray-100:      #F8F9FA;
   }
 
 #mainmenu{
-    height: 100%;
+    height: auto !important;
 }
 #content{
-    height: 100%;
+    height: auto !important;
+}
+
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

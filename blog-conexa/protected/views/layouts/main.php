@@ -1,17 +1,16 @@
 <?php require_once 'header.php'; ?>
 
 <div class="container-fluid px-0" id="page">
-
-	<div id="header" class="bg-primary d-flex justify-content-between ps-4 pe-2 py-2">
+	<div id="header" class="bg-primary d-flex justify-content-between ps-5 pe-4 py-2 ">
 		<div id="logo">
 			<a href="<?php echo Yii::app()->request->baseUrl . '/' ?>">
-				<img src="https://storage.googleapis.com/site-upload-storage/sites/conexa.png" alt="Logo">
+				<img class="header-logo" src="https://storage.googleapis.com/site-upload-storage/sites/conexa.png" alt="Logo">
 			</a>
 		</div>
 
 		<ul class="nav">
 			<li class="nav-item my-auto">
-				<a class="nav-link active" aria-current="page" href="<?= Yii::app()->request->baseUrl . '/' ?>">Home</a>
+				<a class="nav-link active" aria-current="page" href="<?php echo Yii::app()->createUrl('/'); ?>">Home</a>
 			</li>
 			<li class="nav-item my-auto">
 				<a class="nav-link" href="#">Sobre</a>

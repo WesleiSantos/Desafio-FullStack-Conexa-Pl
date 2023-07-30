@@ -1,5 +1,7 @@
 <?php
 
+use Leafo\ScssPhp\Node\Number;
+
 class SiteController extends Controller
 {
 	/**
@@ -25,12 +27,36 @@ class SiteController extends Controller
 	 * This is the default 'index' action that is invoked
 	 * when an action is not explicitly requested by users.
 	 */
-	public function actionIndex()
+	public function actionIndex(string $page = '1', string $categoryId = null, string $search = null)
 	{
+		$categories = Yii::app()->apiService->getAllCategoriesData();
+		$posts = Yii::app()->apiService->getAllPostsData(array('_sort' => 'date', '_order' => 'asc', '_page' => $page, '_limit' => 4, 'categoryId' => $categoryId, 'q' => $search));
+		$users = Yii::app()->apiService->getAllUsersData();
+		$quantPages = Yii::app()->apiService->getCountPostsData(array('categoryId' => $categoryId, 'q' => $search));
+		$quantPages = (int)ceil($quantPages / 4);
+		$postsModel = [];
+
+		foreach ($posts as $post) {
+			$data = new Post();
+			$data->attributes = get_object_vars($post);
+			$data->image = $post->image;
+
+			$id = $post->categoryId;
+			$data->category = array_reduce($categories, function ($foundCategory, $category) use ($id) {
+				return $foundCategory ?: ($category->id == $id ? $category : null);
+			});
+
+			$userId = $post->userId;
+			$data->user = array_reduce($users, function ($foundUser, $user) use ($userId) {
+				return $foundUser ?: ($user->id == $userId ? $user : null);
+			});
+
+			$postsModel[] = $data;
+		}
 
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		$this->render('index');
+		$this->render('index', array('categories' => $categories, 'posts' => $postsModel, 'quantPages' => $quantPages, 'page' => $page, 'search' => $search, 'categoryId' => $categoryId));
 	}
 
 	/**

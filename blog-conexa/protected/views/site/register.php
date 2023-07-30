@@ -10,7 +10,7 @@ $this->breadcrumbs = array(
 ?>
 
 <section class="login d-flex justify-content-center align-content-center flex-wrap h-100">
-    <div class="card w-25">
+    <div class="card col-xl-4 col-md-6 col-8">
         <div class="card-body">
             <h5 class="card-title text-center">Cadastro</h5>
             <?php $form = $this->beginWidget('CActiveForm', array(
