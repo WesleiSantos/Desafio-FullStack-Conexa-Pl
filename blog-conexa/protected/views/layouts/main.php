@@ -1,5 +1,17 @@
 <?php require_once 'header.php'; ?>
 
+<?php
+$currentUrl = Yii::app()->getRequest()->getUrl();
+
+$homeUrl = Yii::app()->createUrl('/');
+$aboutUrl = Yii::app()->createUrl('/site/about');
+
+function isActiveLink($currentUrl, $linkUrl)
+{
+	return $currentUrl === $linkUrl;
+}
+?>
+
 <div class="container-fluid px-0" id="page">
 	<div id="header" class="bg-primary d-flex justify-content-between ps-5 pe-4 py-2 ">
 		<div id="logo">
@@ -10,13 +22,13 @@
 
 		<ul class="nav">
 			<li class="nav-item my-auto">
-				<a class="nav-link active" aria-current="page" href="<?php echo Yii::app()->createUrl('/'); ?>">Home</a>
+				<a class="nav-link <?php echo isActiveLink($currentUrl, $homeUrl) ? 'active' : ''; ?>" href="<?php echo $homeUrl; ?>">Home</a>
 			</li>
 			<li class="nav-item my-auto">
-				<a class="nav-link" href="#">Sobre</a>
+				<a class="nav-link <?php echo isActiveLink($currentUrl, $aboutUrl) ? 'active' : ''; ?>" href="<?php echo $aboutUrl; ?>">Sobre</a>
 			</li>
 			<li class="nav-item my-auto">
-				<a class="nav-link" href="https://conexa.app/">Site oficial</a>
+				<a class="nav-link <?php echo isActiveLink($currentUrl, $officialSiteUrl) ? 'active' : ''; ?>" href="<?php echo $officialSiteUrl; ?>">Site oficial</a>
 			</li>
 		</ul>
 		<?php if (Yii::app()->user->getIsGuest()) : ?>
