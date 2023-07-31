@@ -35,4 +35,10 @@ class ApiService extends CComponent
         $quant_pages = count($data);
         return $quant_pages;
     }
+
+    public function getPostData(int $id, array $params = array())
+    {
+        $data = Yii::app()->curl->get($this->baseUrl.'posts/'.$id, $params);
+        return json_decode($data);
+    }
 }

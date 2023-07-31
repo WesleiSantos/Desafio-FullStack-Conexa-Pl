@@ -2,7 +2,6 @@
 /* @var $this PostController */
 $this->pageTitle = Yii::app()->name;
 ?>
-<div class="border-top"></div>
 <section class="top-page d-flex justify-content-center align-content-center bg-primary flex-wrap d-inline-block p-3">
 	<div class="card w-50 bg-primary border-0 text-center">
 		<div class="card-body p-0 mb-3">
@@ -57,7 +56,7 @@ $this->pageTitle = Yii::app()->name;
 					</div>
 					<div class="card-footer d-flex align-items-center justify-content-between">
 						<small class="text-muted">Publicado em <?php echo (new DateTime($post->date))->format('d/m/Y G:i:s'); ?></small>
-						<button type="button" class="btn btn-outline-primary float-end">Ler mais</button>
+						<a class="btn btn-outline-primary float-end" href="<?php echo Yii::app()->createUrl('post/view', array('postId'=>$post->id)); ?>">Ler mais</a>
 					</div>
 				</div>
 			</div>
@@ -78,16 +77,14 @@ $this->pageTitle = Yii::app()->name;
 
 <script>
 $(document).ready(function() {
-  // Detecta o envio do formulário
+  
   $('#searchForm').on('submit', function(event) {
-    // Obtém o valor do campo de busca
     var searchValue = $('#searchInput').val();
     
-    // Remove o parâmetro search da URL caso o campo esteja vazio
     if (searchValue === '') {
-      event.preventDefault(); // Evita que o formulário seja enviado
-      var urlWithoutSearch = window.location.href.split('?')[0]; // Obtém a URL sem os parâmetros
-      window.location.href = urlWithoutSearch; // Redireciona para a URL sem o parâmetro search
+      event.preventDefault(); 
+      var urlWithoutSearch = window.location.href.split('?')[0]; 
+      window.location.href = urlWithoutSearch;
     }
   });
 });

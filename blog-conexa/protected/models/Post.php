@@ -12,6 +12,7 @@ class Post extends CModel {
 
     public $category;
     public $user;
+    public $comments;
 
 
     public function getPostData()
@@ -21,7 +22,7 @@ class Post extends CModel {
 
     public function attributeNames()
     {
-        return array('userId', 'id', 'title', 'body', 'categoryId', 'date', 'image');
+        return array('userId', 'id', 'title', 'body', 'categoryId', 'date', 'image', 'comments');
     }
 
     public function rules()

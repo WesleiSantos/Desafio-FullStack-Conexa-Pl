@@ -99,6 +99,10 @@ return array(
 			'class' => 'application.components.ApiService',
 		),
 
+		'helper' => array(
+			'class' => 'application.components.Helper',
+		),
+
 	),
 
 	// application-level parameters that can be accessed

@@ -44,9 +44,17 @@ class PostController extends Controller
         $this->render('delete', array('model' => $model));
     }
 
-    public function actionView()
+    public function actionView(string $postId)
     {
-        $model = new Post;
+        $post = Yii::app()->apiService->getPostData($postId,array('_embed'=>'comments'));
+        $categories = Yii::app()->apiService->getAllCategoriesData();
+		$users = Yii::app()->apiService->getAllUsersData();
+        $model = Yii::app()->helper->createPostModel($post, $categories, $users);
+        $comments = array();
+        foreach($post->comments as $comment){
+			$comments[] = Yii::app()->helper->createCommentModel($comment, $users);
+		}
+        $model->comments = $comments;
         $this->render('view', array('model' => $model));
     }
 }

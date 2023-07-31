@@ -38,7 +38,7 @@
 		<?php endif; ?>
 
 	</div><!-- header -->
-
+	<div class="border-top"></div>
 	<div id="mainmenu">
 		<main class="h-100">
 			<?php echo $content; ?>
