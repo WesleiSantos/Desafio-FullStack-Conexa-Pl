@@ -6,7 +6,7 @@ $this->breadcrumbs = array(
 	'About',
 );
 ?>
-<div class="container mt-5">
+<div class="page container mt-5">
 	<div class="row">
 		<div class="col-lg-8 offset-lg-2">
 			<h1 class="mb-4">Sobre o Projeto - Desafio Técnico Conexa</h1>

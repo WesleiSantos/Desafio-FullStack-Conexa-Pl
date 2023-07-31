@@ -50,9 +50,9 @@ function isActiveLink($currentUrl, $linkUrl)
 		<?php endif; ?>
 
 	</div><!-- header -->
-	<div class="border-top"></div>
+	<div class="border-top row"></div>
 	<div id="mainmenu">
-		<main class="h-100">
+		<main style="min-height: 100vh;">
 			<?php echo $content; ?>
 		</main>
 	</div><!-- mainmenu -->

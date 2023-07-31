@@ -34,7 +34,7 @@ class SiteController extends Controller
 		$users = Yii::app()->apiService->getAllUsersData();
 		$quantPages = Yii::app()->apiService->getCountPostsData(array('categoryId' => $categoryId, 'q' => $search));
 		$quantPages = (int)ceil($quantPages / 4);
-
+		$postsModel = array();
 		foreach($posts as $post){
 			$postsModel[] = Yii::app()->helper->createPostModel($post, $categories, $users);
 		}

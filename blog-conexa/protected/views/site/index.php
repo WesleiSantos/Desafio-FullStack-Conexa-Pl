@@ -42,7 +42,7 @@ if (Yii::app()->user->hasFlash('unauthenticated')) {
 }
 ?>
 
-<section class="posts-page p-2">
+<section class="page posts-page p-3">
 	<?php  if(Yii::app()->user->getIsGuest()): ?>
 	<div class="alert alert-danger" role="alert">
 		<h4 class="alert-heading">Ação de Login necessária.</h4>
@@ -54,7 +54,7 @@ if (Yii::app()->user->hasFlash('unauthenticated')) {
 	<div class="m-3">
 		<h2 class="text-center">Últimos posts</h2>
 	</div>
-	<div class="row row-cols-1 row-cols-md-2 g-4">
+	<div class="posts-cards row row-cols-1 row-cols-md-2 g-4">
 		<?php foreach ($posts as $post) : ?>
 			<div class="col">
 				<div class="card h-100">

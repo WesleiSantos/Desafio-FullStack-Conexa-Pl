@@ -3,7 +3,7 @@
 $this->pageTitle = Yii::app()->name;
 ?>
 
-<section class="post-index">
+<section class="page post-view">
     <section class="post-top-page d-flex justify-content-center align-content-center bg-primary flex-wrap d-inline-block p-3">
         <div class="card  w-50 bg-primary border-0 text-center">
             <div class="card-body p-0 mb-1 h-100 d-flex flex-column">
