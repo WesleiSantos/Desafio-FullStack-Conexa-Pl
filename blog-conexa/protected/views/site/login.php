@@ -3,51 +3,52 @@
 /* @var $model LoginForm */
 /* @var $form CActiveForm  */
 
-$this->pageTitle=Yii::app()->name . ' - Login';
-$this->breadcrumbs=array(
+$this->pageTitle = Yii::app()->name . ' - Login';
+$this->breadcrumbs = array(
 	'Login',
 );
 ?>
 
-<h1>Login</h1>
+<?php
+// Verificar se existe a mensagem flash de sucesso na sessão
+if (Yii::app()->user->hasFlash('success')) {
+    // Exibir a mensagem de sucesso
+    echo '<div class="alert alert-success  d-flex justify-content-between" role="alert">'
+        . '<div>'
+        . Yii::app()->user->getFlash('success')
+        . '</div>'
+        .'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>'
+        . '</div>';
+}
+?>
 
-<p>Please fill out the following form with your login credentials:</p>
-
-<div class="form">
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'login-form',
-	'enableClientValidation'=>true,
-	'clientOptions'=>array(
-		'validateOnSubmit'=>true,
-	),
-)); ?>
-
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'username'); ?>
-		<?php echo $form->textField($model,'username'); ?>
-		<?php echo $form->error($model,'username'); ?>
+<section class="page login d-flex justify-content-center align-content-center flex-wrap h-100 p-3">
+	<div class="card col-xl-4 col-md-6 col-8">
+		<div class="card-body">
+			<h5 class="card-title text-center">Login</h5>
+			<?php $form = $this->beginWidget('CActiveForm', array(
+				'id' => 'login-form',
+				'enableClientValidation' => true,
+			)); ?>
+			<div class="mb-3">
+				<?php echo $form->labelEx($model, 'Usuario:', array('class' => 'form-label')); ?>
+				<?php echo $form->textField($model, 'username', array('class' => 'form-control')); ?>
+				<?php echo $form->error($model, 'username', array('class' => 'error text-danger')); ?>
+			</div>
+			<div class="mb-3">
+				<?php echo $form->labelEx($model, 'Senha:', array('class' => 'form-label')); ?>
+				<?php echo $form->passwordField($model, 'password', array('class' => 'form-control')); ?>
+				<?php echo $form->error($model, 'password', array('class' => 'error text-danger')); ?>
+			</div>
+			<div class="mb-3 form-check">
+				<?php echo $form->checkBox($model, 'rememberMe', array('class' => 'form-check-input')); ?>
+				<?php echo $form->label($model,  'Lembrar', array('class' => 'form-check-label')); ?>
+				<?php echo $form->error($model, 'rememberMe', array('class' => 'error text-danger')); ?>
+			</div>
+			<div class="d-flex justify-content-center">
+				<button type="submit" class="btn btn-primary">Login</button>
+			</div>
+			<?php $this->endWidget(); ?>
+		</div>
 	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'password'); ?>
-		<?php echo $form->passwordField($model,'password'); ?>
-		<?php echo $form->error($model,'password'); ?>
-		<p class="hint">
-			Hint: You may login with <kbd>demo</kbd>/<kbd>demo</kbd> or <kbd>admin</kbd>/<kbd>admin</kbd>.
-		</p>
-	</div>
-
-	<div class="row rememberMe">
-		<?php echo $form->checkBox($model,'rememberMe'); ?>
-		<?php echo $form->label($model,'rememberMe'); ?>
-		<?php echo $form->error($model,'rememberMe'); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Login'); ?>
-	</div>
-
-<?php $this->endWidget(); ?>
-</div><!-- form -->
+</section>

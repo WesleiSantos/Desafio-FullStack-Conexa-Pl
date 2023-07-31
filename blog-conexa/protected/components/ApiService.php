@@ -10,8 +10,35 @@ class ApiService extends CComponent
         $this->baseUrl = Yii::app()->params['apiBaseUrl'];
     }
 
-    public function getUsersData()
+    public function getAllUsersData()
     {
-        return Yii::app()->curl->get($this->baseUrl.'users');
+        $data = Yii::app()->curl->get($this->baseUrl.'users');
+        return json_decode($data);  
+    }
+
+    public function getAllCategoriesData()
+    {
+        $data = Yii::app()->curl->get($this->baseUrl.'categories');
+        return json_decode($data);
+    }
+
+    public function getAllPostsData(Array $params = array())
+    {
+        $data = Yii::app()->curl->get($this->baseUrl.'posts', $params);
+        return json_decode($data);
+    }
+
+    public function getCountPostsData(Array $params = array())
+    {
+        $data = Yii::app()->curl->get($this->baseUrl.'posts',$params);
+        $data = json_decode($data);
+        $quant_pages = count($data);
+        return $quant_pages;
+    }
+
+    public function getPostData(int $id, array $params = array())
+    {
+        $data = Yii::app()->curl->get($this->baseUrl.'posts/'.$id, $params);
+        return json_decode($data);
     }
 }

@@ -8,7 +8,7 @@
 return array(
 	'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
 	'name' => 'My Web Application',
-
+	'language' => 'pt_br',
 	// preloading 'log' component
 	'preload' => array('log'),
 
@@ -26,7 +26,7 @@ return array(
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			#'ipFilters'=>array('127.0.0.1','::1'),
 			'password' => 'admin',
-			'ipFilters' => array('127.0.0.1', $_SERVER['REMOTE_ADDR'])
+			#'ipFilters' => array('127.0.0.1', $_SERVER['REMOTE_ADDR'])
 		),
 	),
 
@@ -60,7 +60,7 @@ return array(
 		),
 
 		// uncomment the following to enable URLs in path-format
-		/*
+		
 		'urlManager'=>array(
 			'urlFormat'=>'path',
 			'rules'=>array(
@@ -69,7 +69,7 @@ return array(
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),
-		*/
+		
 
 		// database settings are configured in database.php
 		'db' => require(dirname(__FILE__) . '/database.php'),
@@ -97,6 +97,10 @@ return array(
 
 		'apiService' => array(
 			'class' => 'application.components.ApiService',
+		),
+
+		'helper' => array(
+			'class' => 'application.components.Helper',
 		),
 
 	),
