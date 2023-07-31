@@ -64,3 +64,13 @@ $gray-100:      #F8F9FA;
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.page-link{
+    color: $primary-dark;
+}
+
+.active>.page-link, .page-link.active {
+    z-index: 3;
+    color: #fff;
+    background-color: $primary-dark;
+    border-color: $primary-dark;
+}

@@ -46,6 +46,10 @@ class PostController extends Controller
 
     public function actionView(string $postId)
     {
+        if(Yii::app()->user->getIsGuest()){
+            Yii::app()->user->setFlash('unauthenticated', 'Necessário estar logado para acessar essa pagina.');
+            $this->redirect('/');
+        }
         $post = Yii::app()->apiService->getPostData($postId,array('_embed'=>'comments'));
         $categories = Yii::app()->apiService->getAllCategoriesData();
 		$users = Yii::app()->apiService->getAllUsersData();

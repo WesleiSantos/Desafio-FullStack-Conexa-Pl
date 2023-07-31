@@ -21,7 +21,6 @@ class UserIdentity extends CUserIdentity
 	public function authenticate()
 	{
 		try {
-			//$data = Yii::app()->curl->get('https://my-json-server.typicode.com/WesleiSantos/Conexa-My-Json-DB/users');
 			$users = Yii::app()->apiService->getAllUsersData();
         } catch (\Exception $e) {
 			Yii::log($e->getMessage(), 'error', 'application');

@@ -2,6 +2,7 @@
 /* @var $this PostController */
 $this->pageTitle = Yii::app()->name;
 ?>
+
 <section class="top-page d-flex justify-content-center align-content-center bg-primary flex-wrap d-inline-block p-3">
 	<div class="card w-50 bg-primary border-0 text-center">
 		<div class="card-body p-0 mb-3">
@@ -28,7 +29,28 @@ $this->pageTitle = Yii::app()->name;
 		</div>
 	</div>
 </section>
+<?php
+// Verificar se existe a mensagem flash de error na sessão
+if (Yii::app()->user->hasFlash('unauthenticated')) {
+	// Exibir o modal com a mensagem de error
+	echo '<div class="alert alert-danger  d-flex justify-content-between" role="alert">'
+		. '<div>'
+		. Yii::app()->user->getFlash('unauthenticated')
+		. '</div>'
+		. '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>'
+		. '</div>';
+}
+?>
+
 <section class="posts-page p-2">
+	<?php  if(Yii::app()->user->getIsGuest()): ?>
+	<div class="alert alert-danger" role="alert">
+		<h4 class="alert-heading">Ação de Login necessária.</h4>
+		<p>Para ter acesso completo ao nosso conteúdo é necessário realizar login em nosso site.</p>
+		<hr>
+		<a class="btn btn-primary" href="<?php echo Yii::app()->request->baseUrl . '/site/login' ?>">Login</a>
+	</div>
+	<?php endif; ?>
 	<div class="m-3">
 		<h2 class="text-center">Últimos posts</h2>
 	</div>
@@ -56,7 +78,9 @@ $this->pageTitle = Yii::app()->name;
 					</div>
 					<div class="card-footer d-flex align-items-center justify-content-between">
 						<small class="text-muted">Publicado em <?php echo (new DateTime($post->date))->format('d/m/Y G:i:s'); ?></small>
-						<a class="btn btn-outline-primary float-end" href="<?php echo Yii::app()->createUrl('post/view', array('postId'=>$post->id)); ?>">Ler mais</a>
+						<span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Necessário realizar login.">
+							<a class="btn btn-outline-primary float-end <?php echo Yii::app()->user->getIsGuest() ? ' disabled' : ''; ?>" href="<?php echo Yii::app()->createUrl('post/view', array('postId' => $post->id)); ?>">Ler mais</a>
+						</span>
 					</div>
 				</div>
 			</div>
@@ -76,16 +100,15 @@ $this->pageTitle = Yii::app()->name;
 </section>
 
 <script>
-$(document).ready(function() {
-  
-  $('#searchForm').on('submit', function(event) {
-    var searchValue = $('#searchInput').val();
-    
-    if (searchValue === '') {
-      event.preventDefault(); 
-      var urlWithoutSearch = window.location.href.split('?')[0]; 
-      window.location.href = urlWithoutSearch;
-    }
-  });
-});
+	$(document).ready(function() {
+		$('#searchForm').on('submit', function(event) {
+			var searchValue = $('#searchInput').val();
+
+			if (searchValue === '') {
+				event.preventDefault();
+				var urlWithoutSearch = window.location.href.split('?')[0];
+				window.location.href = urlWithoutSearch;
+			}
+		});
+	});
 </script>
